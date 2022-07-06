@@ -12,6 +12,7 @@ public interface UserDao {
     User findByUsernameAndPassword(@Param("username") String username,
                                    @Param("password") String password);
 
+
     boolean updatePassword(@Param("username") String username,
                            @Param("password") String password);
 

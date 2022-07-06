@@ -81,18 +81,25 @@ public class UserController {
                              @RequestParam("password")String password) throws JsonProcessingException {
         Map<String, String> map=new HashMap<>();
         ObjectMapper mapper=new ObjectMapper();
-
+        //判断用户名是否重复
+        User user = userService.selectUser(username,password);
+        if(user==null){
         boolean b = userService.insertUser(username, password);
 
-        if(b==true){
-            map.put("info", "插入用户成功");
-        }else{
-            map.put("info", "插入用户失败");
+            if(b){
+                map.put("info", "插入用户成功");
+            }else{
+                map.put("info", "插入用户失败");
+            }
+            String res1 = mapper.writeValueAsString(map);
+            return res1;
+        }else {
+            map.put("info","输入的用户名重复请重新输入");
+            String res2 = mapper.writeValueAsString(map);
+            return res2;
         }
-
-        String res = mapper.writeValueAsString(map);
-        return res;
     }
+
 
     @RequestMapping("delete")
     public String deleteUser(@RequestParam("username") String username) throws JsonProcessingException {

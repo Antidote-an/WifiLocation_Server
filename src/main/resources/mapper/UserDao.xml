@@ -4,22 +4,29 @@
 
     <!--查询用户名和密码-->
     <select id="findByUsernameAndPassword" resultType="com.demo.entity.User">
-        select * from demo.t_user
+        select * from basicinfo
         where username = #{username} and password = #{password};
     </select>
 
+    <!--查询用户是否存在-->
+    <select id="findByUsername" resultType="com.demo.entity.User">
+        select username from basicinfo
+        where username=#{username};
+
+    </select>
+
     <update id="updatePassword">
-        update demo.t_user set password = #{password}
+        update basicinfo set password = #{password}
         where username = #{username};
     </update>
 
 
     <delete id="deleteUser">
-        delete from demo.t_user where username = #{username};
+        delete from basicinfo where username = #{username};
     </delete>
 
     <insert id="insertUser">
-        insert into demo.t_user(username, password)
+        insert into basicinfo(username, password)
         values(#{username}, #{password});
     </insert>
 
